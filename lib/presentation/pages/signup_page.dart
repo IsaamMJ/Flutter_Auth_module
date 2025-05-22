@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/sign_up_controller.dart';
 import '../../core/utils/validators.dart';
-import '../../routes/app_routes.dart';
+import '../../routes/auth_routes.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
