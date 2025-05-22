@@ -6,5 +6,5 @@ export 'presentation/pages/login_page.dart';
 export 'presentation/pages/signup_page.dart';
 export 'presentation/bindings/login_binding.dart';
 export 'presentation/bindings/signup_binding.dart';
-export 'routes/app_pages.dart'; // 👈 Add this line
+export 'routes/auth_routes.dart'; // 👈 Add this line
 
