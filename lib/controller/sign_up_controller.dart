@@ -42,7 +42,6 @@ class SignUpController extends GetxController {
 
       if (result != null) {
         Get.snackbar('Success', 'Account created successfully');
-        // Supabase listener handles routing
       } else {
         Get.snackbar('Signup Failed', 'Something went wrong. Please try again.');
       }

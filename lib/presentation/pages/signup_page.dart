@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/sign_up_controller.dart';
 import '../../core/utils/validators.dart';
+import '../../routes/app_routes.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -110,7 +111,7 @@ class SignUpPage extends StatelessWidget {
                       children: [
                         const Text("Already a user? "),
                         GestureDetector(
-                          onTap: () => Get.offNamed('/login', preventDuplicates: false),
+                          onTap: () => Get.offNamed(AppRoutes.login, preventDuplicates: false),
                           child: Text(
                             "Login",
                             style: TextStyle(

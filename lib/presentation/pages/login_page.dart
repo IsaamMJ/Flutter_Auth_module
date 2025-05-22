@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/login_controller.dart';
+import '../../routes/app_routes.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -107,7 +108,7 @@ class LoginPage extends StatelessWidget {
                         const Text("Don't have an account? "),
                         GestureDetector(
                           onTap: () {
-                            Get.offNamed('/signup', preventDuplicates: false);
+                            Get.offNamed(AppRoutes.signup, preventDuplicates: false);
                           },
                           child: Text(
                             "Sign Up",

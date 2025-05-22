@@ -30,7 +30,6 @@ class LoginController extends GetxController {
 
       if (result != null) {
         Get.snackbar('Success', 'Welcome ${result.email}');
-        // Supabase listener handles routing
       } else {
         Get.snackbar('Login Failed', 'Invalid credentials');
       }
