@@ -9,7 +9,9 @@ import '../../domain/usecase/login_usecase.dart';
 class LoginBinding extends Bindings {
   final SupabaseClient supabaseClient;
 
-  LoginBinding({required this.supabaseClient});
+  final void Function()? onLoginSuccess;
+
+  LoginBinding({required this.supabaseClient, this.onLoginSuccess});
 
   @override
   void dependencies() {
@@ -18,6 +20,7 @@ class LoginBinding extends Bindings {
     Get.lazyPut(() => LoginUseCase(Get.find()));
 
     // 🧠 Register controller
-    Get.lazyPut(() => LoginController(Get.find<LoginUseCase>()));
+    Get.lazyPut(() => LoginController(Get.find<LoginUseCase>(),
+      onLoginSuccess: onLoginSuccess,));
   }
 }

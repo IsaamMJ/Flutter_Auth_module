@@ -6,12 +6,13 @@ import '../../domain/entities/credentials.dart';
 
 class LoginController extends GetxController {
   final LoginUseCase _loginUseCase;
+  final void Function()? onLoginSuccess;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final loading = false.obs;
 
-  LoginController(this._loginUseCase);
+  LoginController(this._loginUseCase, {this.onLoginSuccess});
 
   Future<void> login() async {
     final email = emailController.text.trim();
@@ -30,6 +31,7 @@ class LoginController extends GetxController {
 
       if (result != null) {
         Get.snackbar('Success', 'Welcome ${result.email}');
+        onLoginSuccess?.call();
       } else {
         Get.snackbar('Login Failed', 'Invalid credentials');
       }
