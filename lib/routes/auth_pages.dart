@@ -10,7 +10,7 @@ import 'app_routes.dart';
 class AuthPages {
   static List<GetPage> routes({
     required SupabaseClient supabaseClient,
-    void Function()? onLoginSuccess, // ✅ Declare the optional callback
+    void Function()? onLoginSuccess, // ✅ optional callback from host
   }) {
     return [
       GetPage(
@@ -18,7 +18,7 @@ class AuthPages {
         page: () => const LoginPage(),
         binding: LoginBinding(
           supabaseClient: supabaseClient,
-          onLoginSuccess: onLoginSuccess, // ✅ Use it here
+          onLoginSuccess: onLoginSuccess, // ✅ pass callback into binding
         ),
       ),
       GetPage(
