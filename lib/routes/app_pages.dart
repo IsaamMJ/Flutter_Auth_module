@@ -13,12 +13,12 @@ class AuthPages {
   }) {
     return [
       GetPage(
-        name: AppRoutes.login,
+        name: AuthRoutes.login,
         page: () => const LoginPage(),
         binding: LoginBinding(supabaseClient: supabaseClient),
       ),
       GetPage(
-        name: AppRoutes.signup,
+        name: AuthRoutes.signup,
         page: () => const SignUpPage(),
         binding: SignUpBinding(supabaseClient: supabaseClient),
       ),

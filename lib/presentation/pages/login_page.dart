@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
                         const Text("Don't have an account? "),
                         GestureDetector(
                           onTap: () {
-                            Get.offNamed(AppRoutes.signup, preventDuplicates: false);
+                            Get.offNamed(AuthRoutes.signup, preventDuplicates: false);
                           },
                           child: Text(
                             "Sign Up",

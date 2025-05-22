@@ -111,7 +111,7 @@ class SignUpPage extends StatelessWidget {
                       children: [
                         const Text("Already a user? "),
                         GestureDetector(
-                          onTap: () => Get.offNamed(AppRoutes.login, preventDuplicates: false),
+                          onTap: () => Get.offNamed(AuthRoutes.login, preventDuplicates: false),
                           child: Text(
                             "Login",
                             style: TextStyle(

@@ -25,7 +25,7 @@ class AuthPreviewApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Auth Module Preview',
-      initialRoute: AppRoutes.login,
+      initialRoute: AuthRoutes.login,
       getPages: AuthPages.routes(
         supabaseClient: Supabase.instance.client,
       ),
