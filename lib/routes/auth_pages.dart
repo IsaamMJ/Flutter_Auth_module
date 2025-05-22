@@ -5,7 +5,7 @@ import '../presentation/pages/login_page.dart';
 import '../presentation/pages/signup_page.dart';
 import '../presentation/bindings/login_binding.dart';
 import '../presentation/bindings/signup_binding.dart';
-import 'auth_routes.dart';
+import 'app_routes.dart';
 
 class AuthPages {
   static List<GetPage> routes({

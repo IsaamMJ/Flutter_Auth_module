@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'routes/auth_routes.dart';
+import 'routes/app_routes.dart';
 import 'package:auth_module/routes/auth_pages.dart';
 
 void main() async {
