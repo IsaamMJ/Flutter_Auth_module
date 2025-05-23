@@ -85,12 +85,15 @@ class LoginPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState?.validate() ?? false) {
-                            controller.login();
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
+                          onPressed: () {
+                            print('[LoginPage] Login button pressed');
+                            if (formKey.currentState?.validate() ?? false) {
+                              print('[LoginPage] Form valid — calling login');
+                              controller.login();
+                            }
+                          },
+
+                          style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),

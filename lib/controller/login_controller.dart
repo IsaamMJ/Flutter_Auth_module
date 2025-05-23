@@ -21,6 +21,9 @@ class LoginController extends GetxController {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
+    print('[LoginController] login() called');
+    print('[LoginController] Email: $email');
+
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar('Input Error', 'Email and password are required.');
       return;
@@ -32,19 +35,23 @@ class LoginController extends GetxController {
       final credentials = Credentials(email: email, password: password);
       final user = await _loginUseCase.execute(credentials);
 
+      print('[LoginController] Login result user: $user');
+
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
+        print('[LoginController] Login succeeded — calling onLoginSuccess');
 
-        // ✅ Safely defer navigation until after current frame
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          print('[LoginController] Invoking onLoginSuccess...');
           onLoginSuccess?.call();
         });
       } else {
+        print('[LoginController] Login failed — user is null');
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
     } catch (e, stack) {
       Get.snackbar('Error', 'Something went wrong. Please try again.');
-      debugPrint('Login error: $e');
+      debugPrint('[LoginController] Login error: $e');
       debugPrintStack(stackTrace: stack);
     } finally {
       loading.value = false;
