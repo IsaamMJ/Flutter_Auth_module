@@ -22,7 +22,7 @@ class LoginBinding extends Bindings {
     Get.lazyPut(() => LoginUseCase(Get.find<AuthRepository>()));
 
     // 🧠 Register the controller and inject the callback
-    Get.lazyPut(() => LoginController(
+    Get.put(() => LoginController(
       Get.find<LoginUseCase>(),
       onLoginSuccess: onLoginSuccess,
     ));
