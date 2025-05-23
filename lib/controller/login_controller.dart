@@ -11,6 +11,7 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool loading = false.obs;
+  final RxBool shouldNavigate = false.obs; // ✅ NEW
 
   LoginController(
       this._loginUseCase, {
@@ -39,14 +40,13 @@ class LoginController extends GetxController {
 
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
-        print('[LoginController] Login succeeded — calling onLoginSuccess');
+        print('[LoginController] Login succeeded — triggering success flow');
 
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          print('[LoginController] Invoking onLoginSuccess...');
-          onLoginSuccess?.call();
-        });
+        onLoginSuccess?.call();
+
+        // ✅ Trigger navigation flag
+        shouldNavigate.value = true;
       } else {
-        print('[LoginController] Login failed — user is null');
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
     } catch (e, stack) {
