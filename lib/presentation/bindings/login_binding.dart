@@ -17,14 +17,16 @@ class LoginBinding extends Bindings {
 
   @override
   void dependencies() {
-    // 🔐 Register the repository and use case
-    Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(supabaseClient));
-    Get.lazyPut(() => LoginUseCase(Get.find<AuthRepository>()));
+    // 🔐 Register repository and use case (non-permanent for flexibility)
+    Get.put<AuthRepository>(AuthRepositoryImpl(supabaseClient));
+    Get.put<LoginUseCase>(LoginUseCase(Get.find<AuthRepository>()));
 
-    // 🧠 Register the controller and inject the callback
-    Get.put(() => LoginController(
-      Get.find<LoginUseCase>(),
-      onLoginSuccess: onLoginSuccess,
-    ));
+    // 🧠 Force fresh controller with new callback every time
+    Get.put<LoginController>(
+      LoginController(
+        Get.find<LoginUseCase>(),
+        onLoginSuccess: onLoginSuccess,
+      ),
+    );
   }
 }

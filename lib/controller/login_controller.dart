@@ -34,7 +34,11 @@ class LoginController extends GetxController {
 
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
-        onLoginSuccess?.call(); // ✅ Delegates navigation to host
+
+        // ✅ Safely defer navigation until after current frame
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          onLoginSuccess?.call();
+        });
       } else {
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }

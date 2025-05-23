@@ -18,9 +18,11 @@ class AuthPages {
         page: () => const LoginPage(),
         binding: LoginBinding(
           supabaseClient: supabaseClient,
-          onLoginSuccess: onLoginSuccess, // ✅ pass callback into binding
+          onLoginSuccess: onLoginSuccess,
         ),
+        preventDuplicates: true,
       ),
+
       GetPage(
         name: AuthRoutes.signup,
         page: () => const SignUpPage(),
