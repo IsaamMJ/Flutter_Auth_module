@@ -8,25 +8,20 @@ import '../../domain/usecase/login_usecase.dart';
 
 class LoginBinding extends Bindings {
   final SupabaseClient supabaseClient;
-  final void Function()? onLoginSuccess;
 
   LoginBinding({
     required this.supabaseClient,
-    this.onLoginSuccess,
   });
 
   @override
   void dependencies() {
-    // 🔐 Register repository and use case (non-permanent for flexibility)
+    // 🔐 Register repository and use case
     Get.put<AuthRepository>(AuthRepositoryImpl(supabaseClient));
     Get.put<LoginUseCase>(LoginUseCase(Get.find<AuthRepository>()));
 
-    // 🧠 Force fresh controller with new callback every time
+    // 🧠 Create controller without host callback dependency
     Get.put<LoginController>(
-      LoginController(
-        Get.find<LoginUseCase>(),
-        onLoginSuccess: onLoginSuccess,
-      ),
+      LoginController(Get.find<LoginUseCase>()),
     );
   }
 }

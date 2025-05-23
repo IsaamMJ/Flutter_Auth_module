@@ -6,24 +6,20 @@ import '../../domain/entities/credentials.dart';
 
 class LoginController extends GetxController {
   final LoginUseCase _loginUseCase;
-  final void Function()? onLoginSuccess;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool loading = false.obs;
-  final RxBool shouldNavigate = false.obs; // ✅ NEW
+  final RxBool shouldNavigate = false.obs; // ✅ Reactive navigation signal
 
-  LoginController(
-      this._loginUseCase, {
-        this.onLoginSuccess,
-      });
+  LoginController(this._loginUseCase);
 
   Future<void> login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    print('[LoginController] login() called');
-    print('[LoginController] Email: $email');
+    debugPrint('[LoginController] login() called');
+    debugPrint('[LoginController] Email: $email');
 
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar('Input Error', 'Email and password are required.');
@@ -36,16 +32,11 @@ class LoginController extends GetxController {
       final credentials = Credentials(email: email, password: password);
       final user = await _loginUseCase.execute(credentials);
 
-      print('[LoginController] Login result user: $user');
+      debugPrint('[LoginController] Login result user: $user');
 
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
-        print('[LoginController] Login succeeded — triggering success flow');
-
-        onLoginSuccess?.call();
-
-        // ✅ Trigger navigation flag
-        shouldNavigate.value = true;
+        shouldNavigate.value = true; // ✅ Signal successful login
       } else {
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
