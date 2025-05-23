@@ -14,6 +14,19 @@ class LoginController extends GetxController {
 
   LoginController(this._loginUseCase);
 
+  @override
+  void onInit() {
+    super.onInit();
+
+    // ✅ Automatically navigate when login succeeds
+    ever(shouldNavigate, (bool navigate) {
+      if (navigate) {
+        shouldNavigate.value = false;
+        Get.offAllNamed('/main');
+      }
+    });
+  }
+
   Future<void> login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
