@@ -10,16 +10,19 @@ class LoginController extends GetxController {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final loading = false.obs;
+  final RxBool loading = false.obs;
 
-  LoginController(this._loginUseCase, {this.onLoginSuccess});
+  LoginController(
+      this._loginUseCase, {
+        this.onLoginSuccess,
+      });
 
   Future<void> login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar('Input Error', 'Email and password cannot be empty.');
+      Get.snackbar('Input Error', 'Email and password are required.');
       return;
     }
 
@@ -27,17 +30,18 @@ class LoginController extends GetxController {
 
     try {
       final credentials = Credentials(email: email, password: password);
-      final result = await _loginUseCase.execute(credentials);
+      final user = await _loginUseCase.execute(credentials);
 
-      if (result != null) {
-        Get.snackbar('Success', 'Welcome ${result.email}');
-        onLoginSuccess?.call();
+      if (user != null) {
+        Get.snackbar('Login Success', 'Welcome ${user.email}');
+        onLoginSuccess?.call(); // ✅ Delegates navigation to host
       } else {
-        Get.snackbar('Login Failed', 'Invalid credentials');
+        Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
-    } catch (e) {
-      Get.snackbar('Error', 'An unexpected error occurred');
-      debugPrint('Login Error: $e');
+    } catch (e, stack) {
+      Get.snackbar('Error', 'Something went wrong. Please try again.');
+      debugPrint('Login error: $e');
+      debugPrintStack(stackTrace: stack);
     } finally {
       loading.value = false;
     }
