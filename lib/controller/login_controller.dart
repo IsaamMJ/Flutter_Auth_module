@@ -60,6 +60,13 @@ class LoginController extends GetxController {
     }
   }
 
+  void reset() {
+    shouldNavigate.value = false;
+    emailController.clear();
+    passwordController.clear();
+  }
+
+
   @override
   void onClose() {
     emailController.dispose();
