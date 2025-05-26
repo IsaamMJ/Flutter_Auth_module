@@ -8,13 +8,15 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<LoginController>();
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
       body: Center(
         child: Obx(() {
+          // ✅ Always get the controller fresh from GetX
+          final controller = Get.find<LoginController>();
+
           if (controller.loading.value) {
             return const CircularProgressIndicator();
           }
@@ -86,9 +88,7 @@ class LoginPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          print('[LoginPage] Login button pressed');
                           if (formKey.currentState?.validate() ?? false) {
-                            print('[LoginPage] Form valid — calling login');
                             controller.login();
                           }
                         },
