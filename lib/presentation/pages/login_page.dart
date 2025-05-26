@@ -4,17 +4,12 @@ import '../../controller/login_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../auth_module.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetWidget<LoginController> {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
-    // ✅ Always get or create a fresh LoginController
-    final controller = Get.isRegistered<LoginController>()
-        ? Get.find<LoginController>()
-        : Get.put(LoginController(Get.find()));
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
@@ -53,7 +48,6 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Email Field
                     TextFormField(
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -70,7 +64,6 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Password Field
                     TextFormField(
                       controller: controller.passwordController,
                       obscureText: true,
@@ -86,7 +79,6 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Login Button
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -106,7 +98,6 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Sign Up Link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -136,3 +127,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
