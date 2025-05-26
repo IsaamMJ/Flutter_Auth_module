@@ -5,7 +5,7 @@ import 'data/repositories/auth_repository_impl.dart';
 import 'domain/repositories/auth_repository.dart';
 import 'domain/usecase/login_usecase.dart';
 import 'domain/usecase/signup_usecase.dart';
-import 'domain/usecase/logout_usecase.dart'; // ✅ new import
+import 'domain/usecase/logout_usecase.dart';
 import 'auth_module_config.dart';
 
 class AuthModule {
@@ -17,23 +17,16 @@ class AuthModule {
     // Repository
     Get.put<AuthRepository>(
       AuthRepositoryImpl(config.supabaseClient),
-      permanent: true,
+      permanent: true, // ✅ Repository can remain permanent
     );
 
-    // Use Cases
+    // Use Cases (re-created when needed)
     Get.lazyPut(() => LoginUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => SignUpUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => LogoutUseCase(Get.find()), fenix: true); // ✅ new use case
+    Get.lazyPut(() => LogoutUseCase(Get.find()), fenix: true);
 
-    // Controllers
-    Get.put<LoginController>(
-      LoginController(Get.find<LoginUseCase>()),
-      permanent: true,
-    );
-
-    Get.put<SignUpController>(
-      SignUpController(Get.find<SignUpUseCase>()),
-      permanent: true,
-    );
+    // Controllers (re-created when UI requests them)
+    Get.lazyPut(() => LoginController(Get.find<LoginUseCase>()), fenix: true);
+    Get.lazyPut(() => SignUpController(Get.find<SignUpUseCase>()), fenix: true);
   }
 }
