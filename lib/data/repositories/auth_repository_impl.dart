@@ -49,4 +49,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return null;
     }
   }
+
+  @override
+  Future<void> logout() async {
+    try {
+      await _client.auth.signOut();
+    } catch (e) {
+      print('Logout failed: $e');
+      // Optionally handle error more gracefully
+    }
+  }
+
 }
+

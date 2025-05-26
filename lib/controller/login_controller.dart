@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../domain/usecase/login_usecase.dart';
 import '../../domain/entities/credentials.dart';
 
@@ -10,19 +9,18 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool loading = false.obs;
-  final RxBool shouldNavigate = false.obs; // ✅ Reactive navigation signal
+  final RxBool shouldNavigate = false.obs;
 
   LoginController(this._loginUseCase);
 
   @override
   void onInit() {
     super.onInit();
-
-    // ✅ Automatically navigate when login succeeds
+    // ever takes 2 arguments obs and worker (callback )
     ever(shouldNavigate, (bool navigate) {
       if (navigate) {
         shouldNavigate.value = false;
-        Get.offAllNamed('/main');
+        // Get.offAllNamed('/main');
       }
     });
   }
@@ -31,11 +29,11 @@ class LoginController extends GetxController {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    debugPrint('[LoginController] login() called');
-    debugPrint('[LoginController] Email: $email');
+    // debugPrint('[LoginController] login() called');
+    // debugPrint('[LoginController] Email: $email');
 
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar('Input Error', 'Email and password are required.');
+      // Get.snackbar('Input Error', 'Email and password are required.');
       return;
     }
 
@@ -45,17 +43,17 @@ class LoginController extends GetxController {
       final credentials = Credentials(email: email, password: password);
       final user = await _loginUseCase.execute(credentials);
 
-      debugPrint('[LoginController] Login result user: $user');
+      // debugPrint('[LoginController] Login result user: $user');
 
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
-        shouldNavigate.value = true; // ✅ Signal successful login
+        shouldNavigate.value = true;
       } else {
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
     } catch (e, stack) {
       Get.snackbar('Error', 'Something went wrong. Please try again.');
-      debugPrint('[LoginController] Login error: $e');
+      // debugPrint('[LoginController] Login error: $e');
       debugPrintStack(stackTrace: stack);
     } finally {
       loading.value = false;

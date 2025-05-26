@@ -47,7 +47,7 @@ class SignUpController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'Unexpected error during signup');
-      debugPrint('Signup error: $e');
+      // debugPrint('Signup error: $e');
     } finally {
       isLoading.value = false;
     }
