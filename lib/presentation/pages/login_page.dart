@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/login_controller.dart';
 import '../../routes/app_routes.dart';
+import '../../auth_module.dart';
 
-class LoginPage extends GetWidget<LoginController> {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+
+    // ✅ Always get or create a fresh LoginController
+    final controller = Get.isRegistered<LoginController>()
+        ? Get.find<LoginController>()
+        : Get.put(LoginController(Get.find()));
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
