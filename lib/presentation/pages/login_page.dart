@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../controller/login_controller.dart';
 import '../../routes/app_routes.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetWidget<LoginController> {
   const LoginPage({super.key});
 
   @override
@@ -14,9 +14,6 @@ class LoginPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF2F2F2),
       body: Center(
         child: Obx(() {
-          // ✅ Always get the controller fresh from GetX
-          final controller = Get.find<LoginController>();
-
           if (controller.loading.value) {
             return const CircularProgressIndicator();
           }
