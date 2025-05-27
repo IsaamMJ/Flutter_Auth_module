@@ -46,7 +46,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Email Field
                     TextFormField(
                       controller: controller.emailController,
                       decoration: const InputDecoration(
@@ -58,7 +57,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Password Field
                     TextFormField(
                       controller: controller.passwordController,
                       obscureText: true,
@@ -71,7 +69,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Confirm Password Field
                     TextFormField(
                       controller: controller.confirmPasswordController,
                       obscureText: true,
@@ -84,7 +81,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Submit Button
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -105,7 +101,6 @@ class SignUpPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Redirect to login
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

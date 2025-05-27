@@ -14,18 +14,15 @@ class AuthModule {
   static void init(AuthModuleConfig newConfig) {
     config = newConfig;
 
-    // Repository
     Get.put<AuthRepository>(
       AuthRepositoryImpl(config.supabaseClient),
-      permanent: true, // ✅ Repository can remain permanent
+      permanent: true,
     );
 
-    // Use Cases (re-created when needed)
     Get.lazyPut(() => LoginUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => SignUpUseCase(Get.find()), fenix: true);
     Get.lazyPut(() => LogoutUseCase(Get.find()), fenix: true);
 
-    // Controllers (re-created when UI requests them)
     Get.lazyPut(() => LoginController(Get.find<LoginUseCase>()), fenix: true);
     Get.lazyPut(() => SignUpController(Get.find<SignUpUseCase>()), fenix: true);
   }
