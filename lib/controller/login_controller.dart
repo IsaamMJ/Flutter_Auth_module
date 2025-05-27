@@ -9,31 +9,15 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool loading = false.obs;
-  final RxBool shouldNavigate = false.obs;
 
   LoginController(this._loginUseCase);
-
-  @override
-  void onInit() {
-    super.onInit();
-    // ever takes 2 arguments obs and worker (callback )
-    ever(shouldNavigate, (bool navigate) {
-      if (navigate) {
-        shouldNavigate.value = false;
-        // Get.offAllNamed('/main');
-      }
-    });
-  }
 
   Future<void> login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    // debugPrint('[LoginController] login() called');
-    // debugPrint('[LoginController] Email: $email');
-
     if (email.isEmpty || password.isEmpty) {
-      // Get.snackbar('Input Error', 'Email and password are required.');
+      Get.snackbar('Input Error', 'Email and password are required.');
       return;
     }
 
@@ -43,17 +27,14 @@ class LoginController extends GetxController {
       final credentials = Credentials(email: email, password: password);
       final user = await _loginUseCase.execute(credentials);
 
-      // debugPrint('[LoginController] Login result user: $user');
-
       if (user != null) {
         Get.snackbar('Login Success', 'Welcome ${user.email}');
-        shouldNavigate.value = true;
+        // Host app should listen to session state and handle navigation
       } else {
         Get.snackbar('Login Failed', 'Incorrect email or password.');
       }
     } catch (e, stack) {
       Get.snackbar('Error', 'Something went wrong. Please try again.');
-      // debugPrint('[LoginController] Login error: $e');
       debugPrintStack(stackTrace: stack);
     } finally {
       loading.value = false;
@@ -61,11 +42,9 @@ class LoginController extends GetxController {
   }
 
   void reset() {
-    shouldNavigate.value = false;
     emailController.clear();
     passwordController.clear();
   }
-
 
   @override
   void onClose() {
