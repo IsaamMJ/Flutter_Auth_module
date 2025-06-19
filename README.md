@@ -1,16 +1,20 @@
-# Auth Module for Flutter
+# 🔐 Auth Module for Flutter
 
-A modular authentication system for Flutter apps using **Supabase**, **GetX**, and **clean architecture** principles. This module provides login and signup UI pages, controllers, and use cases, all ready to plug into your project.
+**A complete, standalone authentication module built with Flutter**, designed to work both:
+
+* ✅ As a **standalone app** for development and preview
+* 🔗 As a **pluggable module** to integrate into larger applications
 
 ---
 
 ## 🚀 Features
 
-* Supabase-backed authentication
-* Clean separation of concerns (presentation, domain, data layers)
-* Ready-to-use login and signup UI with form validation
-* Dependency injection and routing using GetX
-* Modular design for easy integration
+* 📦 **Modular**: Plug & play architecture
+* 📱 **Standalone App Mode**: Run independently for testing and development
+* 🔒 **Supabase Auth Integration**
+* 🎨 **Login & Signup UI included**
+* 🧠 **Clean Architecture**: Separation of concerns
+* ⚙️ **GetX** for routing, state, and DI
 
 ---
 
@@ -18,25 +22,19 @@ A modular authentication system for Flutter apps using **Supabase**, **GetX**, a
 
 ```
 lib/
-├── auth_module.dart               # Main export file
-├── main.dart                      # Sample entry app
-├── controller/                    # Login & Signup controllers
+├── main.dart                      # Standalone app entry
+├── auth_module.dart               # Exports for integration
+├── controller/                    # Business logic (Login, Signup)
 ├── core/utils/                    # Validators
-├── data/                          # Supabase data sources & repo implementations
-├── domain/                        # Entities, repositories, and use cases
-├── presentation/                 # UI pages and bindings
-└── routes/                        # Route definitions
+├── data/                          # Supabase auth implementation
+├── domain/                        # Use cases, entities, repositories
+├── presentation/                 # Pages and Bindings
+└── routes/                        # Auth routes
 ```
 
 ---
 
 ## 🧰 Dependencies
-
-* [Flutter](https://flutter.dev)
-* [GetX](https://pub.dev/packages/get)
-* [Supabase Flutter](https://pub.dev/packages/supabase_flutter)
-
-Add these to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -50,9 +48,15 @@ dependencies:
 
 ## 🛠️ Getting Started
 
-### 1. Initialize Supabase
+### ✅ 1. Standalone App (Preview Mode)
 
-Update your `main.dart`:
+Run this project as a Flutter app directly:
+
+```bash
+flutter run
+```
+
+This launches the `AuthPreviewApp`, pre-configured with Supabase:
 
 ```dart
 void main() async {
@@ -71,51 +75,63 @@ void main() async {
 }
 ```
 
-### 2. Use the Module Routes
+---
+
+### 🔗 2. Integration into Another App
+
+Import the module and use it in your app:
 
 ```dart
-return GetMaterialApp(
-  initialRoute: AuthRoutes.login,
-  getPages: AuthPages.routes(),
-);
+import 'package:auth_module/auth_module.dart';
+
+void main() {
+  AuthModule.init(
+    AuthModuleConfig(supabaseClient: Supabase.instance.client),
+  );
+
+  runApp(GetMaterialApp(
+    initialRoute: AuthRoutes.login,
+    getPages: AuthPages.routes(),
+  ));
+}
 ```
 
 ---
 
-## 🔐 Auth Flow
+## 🧪 Auth Flow
 
-* **Login**: Handled by `LoginController` and `LoginUseCase`
-* **Signup**: Handled by `SignUpController` and `SignUpUseCase`
-* **Logout**: Via `AuthRepository.logout()` (optional UI)
-
-All logic is abstracted for reuse and testing.
+* **Login & Signup** handled with domain-driven use cases
+* **Email validation**, **password confirmation**, and **session feedback**
+* **Logout** capability included via `AuthRepository`
 
 ---
 
-## 📸 UI Screenshots
+## 🎨 UI Previews
 
-* `LoginPage`: Email & password fields, validation, loading states
-* `SignUpPage`: Includes confirm password and basic validators
+* Modern, form-validated login and signup pages
+* Obx-based loading and state feedback
+* Built using Material Design
 
 ---
 
-## 🔄 Extending
+## 🔄 Extendable
 
-You can extend the module by:
+Easily extend the module with:
 
-* Adding social login support via Supabase
-* Listening to auth state changes for navigation
-* Adding password reset or email verification
+* 🔄 Social logins
+* 🔐 Email verification
+* 🔁 Password reset
+* 🧪 Custom validators
 
 ---
 
 ## 🧪 Testing
 
-The separation of concerns allows easy mocking of use cases for unit testing. You can also replace `AuthRepositoryImpl` with a mock for integration tests.
+* Clean architecture enables unit testing
+* Swap `AuthRepository` with mock for integration tests
 
 ---
 
 ## 📄 License
 
-MIT – Feel free to use and modify.
-
+MIT – Use it, extend it, share it.
